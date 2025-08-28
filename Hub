@@ -251,7 +251,7 @@ local function createHub()
     local searchBoxBorder=Instance.new("UIStroke"); searchBoxBorder.ApplyStrokeMode=Enum.ApplyStrokeMode.Border; searchBoxBorder.Thickness=1.5; searchBoxBorder.LineJoinMode=Enum.LineJoinMode.Round; searchBoxBorder.Parent=searchBox
     local searchBoxGradient=Instance.new("UIGradient"); searchBoxGradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,140,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(220,100,0))}); searchBoxGradient.Rotation=90; searchBoxGradient.Parent=searchBoxBorder
 
-    local categoryFrame=Instance.new("ScrollingFrame"); categoryFrame.Name="CategoryFrame"; categoryFrame.Size=UDim2.new(0,180,1,-165); categoryFrame.Position=UDim2.new(0,5,0,80); categoryFrame.BackgroundColor3=COLOR_CATEGORY_BG; categoryFrame.BorderSizePixel=0; categoryFrame.ScrollBarThickness=6; categoryFrame.Parent=frame; applyRoundedCorners(categoryFrame,12)
+    local categoryFrame=Instance.new("ScrollingFrame"); categoryFrame.Name="CategoryFrame"; categoryFrame.Size=UDim2.new(0,180,1,-125); categoryFrame.Position=UDim2.new(0,5,0,80); categoryFrame.BackgroundColor3=COLOR_CATEGORY_BG; categoryFrame.BorderSizePixel=0; categoryFrame.ScrollBarThickness=6; categoryFrame.Parent=frame; applyRoundedCorners(categoryFrame,12)
     local categoryFrameBorder=Instance.new("UIStroke"); categoryFrameBorder.ApplyStrokeMode=Enum.ApplyStrokeMode.Border; categoryFrameBorder.Thickness=1.5; categoryFrameBorder.LineJoinMode=Enum.LineJoinMode.Round; categoryFrameBorder.Parent=categoryFrame
     local categoryFrameGradient=Instance.new("UIGradient"); categoryFrameGradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,140,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(220,100,0))}); categoryFrameGradient.Rotation=90; categoryFrameGradient.Parent=categoryFrameBorder
 
@@ -281,7 +281,7 @@ local function createHub()
     local footerTextLayout = Instance.new("UIListLayout"); footerTextLayout.FillDirection = Enum.FillDirection.Vertical; footerTextLayout.VerticalAlignment = Enum.VerticalAlignment.Center; footerTextLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right; footerTextLayout.SortOrder = Enum.SortOrder.LayoutOrder; footerTextLayout.Padding = UDim.new(0, 3); footerTextLayout.Parent = footerRightContainer
 
     local ytLabel=Instance.new("TextLabel"); ytLabel.Name="YouTubeLabel"; ytLabel.Text="Youtube: Khalexis"; ytLabel.Font=Enum.Font.Gotham; ytLabel.TextSize=12; ytLabel.TextColor3=Color3.fromRGB(180,180,180); ytLabel.BackgroundTransparency=1; ytLabel.Size=UDim2.new(1, 0, 0, 15); ytLabel.TextXAlignment=Enum.TextXAlignment.Right; ytLabel.LayoutOrder = 1; ytLabel.Parent=footerRightContainer
-    local discordLabel=Instance.new("TextLabel"); discordLabel.Name="DiscordLabel"; discordLabel.Text="Discord: discord.gg/aNaFpb2Qsb"; discordLabel.Font=Enum.Font.Gotham; ytLabel.TextSize=12; ytLabel.TextColor3=Color3.fromRGB(180,180,180); ytLabel.BackgroundTransparency=1; ytLabel.Size=UDim2.new(1, 0, 0, 15); ytLabel.TextXAlignment=Enum.TextXAlignment.Right; ytLabel.LayoutOrder = 2; ytLabel.Parent=footerRightContainer
+    local discordLabel=Instance.new("TextLabel"); discordLabel.Name="DiscordLabel"; discordLabel.Text="Discord: discord.gg/aNaFpb2Qsb"; discordLabel.Font=Enum.Font.Gotham; discordLabel.TextSize=12; discordLabel.TextColor3=Color3.fromRGB(180,180,180); discordLabel.BackgroundTransparency=1; discordLabel.Size=UDim2.new(1, 0, 0, 15); discordLabel.TextXAlignment=Enum.TextXAlignment.Right; discordLabel.LayoutOrder = 2; discordLabel.Parent=footerRightContainer
     local hintLabel=Instance.new("TextLabel"); hintLabel.Name="DudaLabel"; hintLabel.Text="Se tiver alguma dúvida entre no Discord!"; hintLabel.Font=Enum.Font.Gotham; hintLabel.TextSize=10; hintLabel.TextColor3=Color3.fromRGB(150,150,150); hintLabel.BackgroundTransparency=1; hintLabel.Size=UDim2.new(1, 0, 0, 12); hintLabel.TextXAlignment=Enum.TextXAlignment.Right; hintLabel.LayoutOrder = 3; hintLabel.Parent=footerRightContainer
 
     local playerInfo=Instance.new("Frame"); playerInfo.Name="PlayerInfoFrame"; playerInfo.Size=UDim2.new(0,150,0,40); playerInfo.Position=UDim2.new(0,10,0.5,-20); playerInfo.BackgroundTransparency=1; playerInfo.Parent=footerBackground
@@ -314,7 +314,20 @@ local function createHub()
         return btn
     end
 
-    local function createUpdateLabel(text) local lbl=Instance.new("TextLabel"); lbl.Size=UDim2.new(1,0,0,220); lbl.BackgroundTransparency=1; lbl.TextColor3=COLOR_TEXT; lbl.Font=Enum.Font.Gotham; lbl.TextSize=16; lbl.Text=text; lbl.TextWrapped=true; lbl.TextXAlignment=Enum.TextXAlignment.Center; lbl.TextYAlignment=Enum.TextYAlignment.Top; lbl.Parent=scriptContainer; return lbl end
+    local function createUpdateLabel(text, textColor)
+        local lbl=Instance.new("TextLabel");
+        lbl.Size=UDim2.new(1,0,0,220);
+        lbl.BackgroundTransparency=1;
+        lbl.TextColor3=textColor or COLOR_TEXT; -- Usar textColor se fornecido, senão COLOR_TEXT
+        lbl.Font=Enum.Font.Gotham;
+        lbl.TextSize=16;
+        lbl.Text=text;
+        lbl.TextWrapped=true;
+        lbl.TextXAlignment=Enum.TextXAlignment.Center;
+        lbl.TextYAlignment=Enum.TextYAlignment.Top;
+        lbl.Parent=scriptContainer;
+        return lbl
+    end
 
     local function createCategoryButton(name, contents, layoutOrder)
         local btn=Instance.new("TextButton"); btn.Size=UDim2.new(1,0,0,28); btn.BackgroundColor3=COLOR_CATEGORY_BTN; btn.BorderSizePixel=0; btn.TextColor3=Color3.fromRGB(230,230,230); btn.Font=Enum.Font.Gotham; btn.TextSize=11; btn.Text=name; btn.TextXAlignment=Enum.TextXAlignment.Center; btn.Parent=categoryContainer; applyRoundedCorners(btn,8)
@@ -326,14 +339,31 @@ local function createHub()
         return btn
     end
    
-    local updatesText="Khalexis Hub V0.9\n\n- 2 Novos Script Grow a Garden\n- 1 Novo Script 99 Noites na Floresta\n- Interface totalmente reformulada e atualizada\n- Nova Animação ao fechar o hub\n- Sistema de Key Melhorado\n- Novo Sistema de Pesquisa\n- Bugs Arrumados\n\n✅"
+    -- Novo texto para a aba de atualizações
+    local updatesTextFormatted = {
+        {Text = "Khalexis Hub V1.0!", Color = Color3.fromRGB(255, 255, 255)}, -- Branco
+        {Text = "Enfim chegamos á atualização 1.0, só tenho a agradecer á todos vocês!", Color = Color3.fromRGB(255, 165, 0)}, -- Laranja
+        {Text = "- 2 Scripts Blox Fruits", Color = Color3.fromRGB(220, 220, 220)},
+        {Text = "- +1 Natural Disaster", Color = Color3.fromRGB(220, 220, 220)},
+        {Text = "- +1 Ink Game", Color = Color3.fromRGB(220, 220, 220)},
+        {Text = "- +1 Build a Plane", Color = Color3.fromRGB(220, 220, 220)},
+        {Text = "- +1 Steal a Brainrot", Color = Color3.fromRGB(220, 220, 220)},
+        {Text = "- +1 Brookhaven", Color = Color3.fromRGB(220, 220, 220)},
+    }
+   
+    local function displayUpdates()
+        clearScripts()
+        for _, lineData in ipairs(updatesTextFormatted) do
+            createUpdateLabel(lineData.Text, lineData.Color)
+        end
+    end
 
     -- Script definitions with new additions and modifications
-    local stealScripts={{Name="Miranda Tween",Func=function()loadstring(game:HttpGet("https://pastefy.app/TnWWJ4NS/raw"))()end},{Name="Chilli Hub",Func=function()loadstring(game:HttpGet("https://raw.githubusercontent.com/tienkhanh1/spicy/main/Chilli.lua"))()end},{Name="Delfi Script",Func=function()loadstring(game:HttpGet("https://pastefy.app/7MQOgJCO/raw"))()end}}
+    local stealScripts={{Name="Miranda Tween",Func=function()loadstring(game:HttpGet("https://pastefy.app/TnWWJ4NS/raw"))()end, LayoutOrder=1},{Name="Chilli Hub",Func=function()loadstring(game:HttpGet("https://raw.githubusercontent.com/tienkhanh1/spicy/main/Chilli.lua"))()end, LayoutOrder=2},{Name="Delfi Script",Func=function()loadstring(game:HttpGet("https://pastefy.app/7MQOgJCO/raw"))()end, LayoutOrder=3}}
     local noiteScripts={{Name="Iliankytb",Func=function()loadstring(game:HttpGet("https://raw.githubusercontent.com/Iliankytb/Iliankytb/main/Best99NightsInTheForest"))()end},{Name="Kenniel Scripts",Func=function()loadstring(game:HttpGet("https://raw.githubusercontent.com/Kenniel123/99-Nights-in-the-Forest/refs/heads/main/99%20Nights%20in%20the%20Forest"))()end},{Name="Hutao Hub",Func=function()loadstring(game:HttpGet("https://raw.githubusercontent.com/SLK-gaming/Hutao-Hub/refs/heads/main/99-Nights-In-The-Forest.txt"))()end},{Name="Ringta Script",Func=function()loadstring(game:HttpGet("https://raw.githubusercontent.com/wefwef127382/99daysloader.github.io/refs/heads/main/ringta.lua"))()end},{Name="Voidware",Func=function()loadstring(game:HttpGet("https://raw.githubusercontent.com/VapeVoidware/VWExtra/main/NightsInTheForest.lua",true))()end},{Name="Vex Op",Func=function()loadstring(game:HttpGet("https://raw.githubusercontent.com/yoursvexyyy/VEX-OP/refs/heads/main/99%20nights%20in%20the%20forest"))()end}}
     local growScripts={{Name="No Lag Hub",Func=function()loadstring(game:HttpGet("https://pastebin.com/raw/XHMN2zpp"))()end},{Name="MauScripts",Func=function()loadstring(game:HttpGet("https://raw.githubusercontent.com/nootmaus/GrowAAGarden/refs/heads/main/mauscripts"))()end},{Name="ThanHub",Func=function()loadstring(game:HttpGet("https://raw.githubusercontent.com/thantzy/thanhub/refs/heads/main/thanv1"))()end}}
     local voxSeasScripts={{Name="Brutus Hub",Func=function()loadstring(game:HttpGet("https://raw.githubusercontent.com/codenixstudios/brutus-hub/BRUTUS_TEAM/Games/VoxSeas.lua"))()end},{Name="Type Hub",Func=function()loadstring(game:HttpGet("https://raw.githubusercontent.com/meobeo8/type/main/VoxSeasAutoChest.lua"))()end},{Name="Idk Hub",Func=function()loadstring(game:HttpGet("https://raw.githubusercontent.com/shakaUnlocked/IiI/refs/heads/main/vxs.lua"))()end}}
-    local bloxFruitsScripts={{Name="Xero Hub",Func=function()loadstring(game:HttpGet("https://raw.githubusercontent.com/Xero2409/XeroHub/refs/heads/main/main.lua"))()end},{Name="Volcano Hub",Func=function()loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/indexeduu/BF-NewVer/refs/heads/main/V3New.lua"))()end},{Name="Blue X Hub",Func=function()loadstring(game:HttpGet("https://raw.githubusercontent.com/Dev-BlueX/BlueX-Hub/refs/heads/main/Main.lua"))()end}}
+    local bloxFruitsScripts={{Name="Xero Hub",Func=function()loadstring(game:HttpGet("https://raw.githubusercontent.com/Xero2409/XeroHub/refs/heads/main/main.lua"))()end, LayoutOrder=1},{Name="Volcano Hub",Func=function()loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/indexeduu/BF-NewVer/refs/heads/main/V3New.lua"))()end, LayoutOrder=2},{Name="Blue X Hub",Func=function()loadstring(game:HttpGet("https://raw.githubusercontent.com/Dev-BlueX/BlueX-Hub/refs/heads/main/Main.lua"))()end, LayoutOrder=3}}
     local kingLegacyScripts={{Name="Zee Hub",Func=function()loadstring(game:HttpGet('https://zuwz.me/Ls-Zee-Hub-KL'))()end}}
     local rivalsScripts={{Name="Rise",Func=function()loadstring(game:HttpGet("https://raw.githubusercontent.com/ShadowBey01/SHWX-Team-Rise-Scripts/refs/heads/main/Games/Rise%20(Rivals).lua",true))()end}}
     local doorsScripts={{Name="Velocity X",Func=function()loadstring(game:HttpGet("https://raw.githubusercontent.com/DasVelocity/VelocityX/refs/heads/main/VelocityX.lua"))()end},{Name="Saturn Hub",Func=function()loadstring(game:HttpGet("https://raw.githubusercontent.com/JScripter-Lua/Saturn_Hub_Products/refs/heads/main/Saturn_Hub_Doors.lua"))()end}}
@@ -343,19 +373,19 @@ local function createHub()
     local naturalDisasterScripts={{Name="BaconJJScript",Func=function()loadstring(game:HttpGet("https://pastebin.com/raw/MAnXu0qv"))()end}}
 
     -- Category buttons with updated order and new categories
-    createCategoryButton("📣 Atualizações 📣",updatesText)
-    createCategoryButton("Steal a Brainrot Scripts",stealScripts)
-    createCategoryButton("99 Noites na Floresta Scripts",noiteScripts)
-    createCategoryButton("Grow a Garden Scripts",growScripts)
-    createCategoryButton("Vox Seas Scripts",voxSeasScripts)
-    createCategoryButton("Blox Fruits Scripts",bloxFruitsScripts)
-    createCategoryButton("King Legacy Scripts",kingLegacyScripts)
-    createCategoryButton("Rivals Scripts",rivalsScripts)
-    createCategoryButton("Doors Scripts",doorsScripts)
-    createCategoryButton("Brookhaven Scripts",brookhavenScripts) -- Nova categoria
-    createCategoryButton("Build a Plane Scripts",buildAPlaneScripts) -- Nova categoria
-    createCategoryButton("Ink Game Scripts",inkGameScripts) -- Nova categoria
-    createCategoryButton("Natural Disaster Scripts",naturalDisasterScripts) -- Nova categoria
+    createCategoryButton("📣 Atualizações 📣",displayUpdates, 1) -- Chama a função para exibir as atualizações formatadas
+    createCategoryButton("Steal a Brainrot Scripts",stealScripts, 2)
+    createCategoryButton("99 Noites na Floresta Scripts",noiteScripts, 3)
+    createCategoryButton("Grow a Garden Scripts",growScripts, 4)
+    createCategoryButton("Vox Seas Scripts",voxSeasScripts, 5)
+    createCategoryButton("Blox Fruits Scripts",bloxFruitsScripts, 6)
+    createCategoryButton("King Legacy Scripts",kingLegacyScripts, 7)
+    createCategoryButton("Rivals Scripts",rivalsScripts, 8)
+    createCategoryButton("Doors Scripts",doorsScripts, 9)
+    createCategoryButton("Brookhaven Scripts",brookhavenScripts, 10)
+    createCategoryButton("Build a Plane Scripts",buildAPlaneScripts, 11)
+    createCategoryButton("Ink Game Scripts",inkGameScripts, 12)
+    createCategoryButton("Natural Disaster Scripts",naturalDisasterScripts, 13)
    
     local firstCategory=categoryContainer:FindFirstChildOfClass("TextButton"); if firstCategory then firstCategory.MouseButton1Click:Fire() end
     return animationContainer
