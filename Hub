@@ -1,5 +1,6 @@
+
 -- Khalexis Hub - Script Hub para Roblox com sistema de key, barra de pesquisa e configurações de tema
--- Chaves válidas: "khalexispremium100", "khalexisrumoa10kdnv", "khalexisdegraçakk"
+-- Chaves válidas: "khalexispremium100", "khalexisquasela"
 -- Mensagem de erro: "Key incorreta"
 -- Toggle "K" branco em quadrado preto arredondado
 -- Toggle aparece só ao fechar o hub, some ao abrir
@@ -82,8 +83,7 @@ local ErrorLabel
 local StorageKeyFileName = "KhalexisHubKey.txt"
 local validKeys = {
     khalexispremium100 = true,
-    ["khalexisrumoa10kdnv"] = true,
-    ["khalexisdegraçakk"] = true,
+    khalexisquasela = true, -- Chave alterada
 }
 
 local function saveKeyLocally(key) pcall(function() if writefile then writefile(StorageKeyFileName, key) elseif write_file then write_file(StorageKeyFileName, key) end end) end
@@ -338,7 +338,7 @@ local function createHub()
         btn.MouseButton1Click:Connect(function() clearScripts(); if typeof(contents)=="table" then for _,s in pairs(contents) do createScriptButton(s.Name,s.Func) end elseif typeof(contents)=="string" then createUpdateLabel(contents) elseif typeof(contents)=="function" then contents() end end)
         return btn
     end
-   
+
     -- Novo texto para a aba de atualizações
     local updatesTextFormatted = {
         {Text = "Khalexis Hub V1.0!", Color = Color3.fromRGB(255, 255, 255)}, -- Branco
@@ -350,7 +350,7 @@ local function createHub()
         {Text = "- +1 Steal a Brainrot", Color = Color3.fromRGB(220, 220, 220)},
         {Text = "- +1 Brookhaven", Color = Color3.fromRGB(220, 220, 220)},
     }
-   
+
     local function displayUpdates()
         clearScripts()
         for _, lineData in ipairs(updatesTextFormatted) do
@@ -386,7 +386,7 @@ local function createHub()
     createCategoryButton("Build a Plane Scripts",buildAPlaneScripts, 11)
     createCategoryButton("Ink Game Scripts",inkGameScripts, 12)
     createCategoryButton("Natural Disaster Scripts",naturalDisasterScripts, 13)
-   
+
     local firstCategory=categoryContainer:FindFirstChildOfClass("TextButton"); if firstCategory then firstCategory.MouseButton1Click:Fire() end
     return animationContainer
 end
@@ -418,10 +418,7 @@ local function createKeyInputFrame()
     local subInfoLabel=Instance.new("TextLabel"); subInfoLabel.Name="SubInfoText"; subInfoLabel.Size=UDim2.new(1,-20,0,20); subInfoLabel.Position=UDim2.new(0,10,0,215); subInfoLabel.BackgroundTransparency=1; subInfoLabel.Font=Enum.Font.Gotham; subInfoLabel.TextSize=14; subInfoLabel.TextColor3=COLOR_FOOTER_TEXT; subInfoLabel.TextWrapped=false; subInfoLabel.TextXAlignment=Enum.TextXAlignment.Center; subInfoLabel.TextYAlignment=Enum.TextYAlignment.Top; subInfoLabel.Text="Sistema de Key - Khalexis Hub"; subInfoLabel.Parent=frame
     spawn(function() local hue=0; while frame and frame.Parent do hue=(hue+0.01)%1; infoLabel.TextColor3=Color3.fromHSV(hue,1,1); wait(0.03) end end)
     ErrorLabel=Instance.new("TextLabel"); ErrorLabel.Name="ErrorLabel"; ErrorLabel.Size=UDim2.new(1,0,0,25); ErrorLabel.Position=UDim2.new(0,0,1,-95); ErrorLabel.BackgroundTransparency=1; ErrorLabel.TextColor3=COLOR_ERROR; ErrorLabel.Font=Enum.Font.GothamBold; ErrorLabel.TextSize=16; ErrorLabel.Text=""; ErrorLabel.Parent=frame
-    local function showLocalError(msg) ErrorLabel.Text=msg; spawn(function() wait(2); if ErrorLabel and ErrorLabel.Parent==frame then ErrorLabel.Text="" end end) end
-    copyKeyBtn.MouseButton1Click:Connect(function() local s,_=copyToClipboard("discord.gg/aNaFpb2Qsb"); if s then copyKeyBtn.Text="Link copiado!"; wait(2); copyKeyBtn.Text="Pegar Key" else showLocalError("Falha ao copiar.") end end)
-    confirmBtn.MouseButton1Click:Connect(function() validateKeyAndOpen(keyBox.Text:gsub("%s",""):lower(),false) end)
-    return frame,showLocalError
+    local function showLocalError(msg) ErrorLabel.Text=msg; spawn(function() wait(2); if ErrorLabel and ErrorLabel.Parent==frame then ErrorLabel.Text="" end end) showLocalError
 end
 
 ToggleButton=Instance.new("TextButton"); ToggleButton.Name="ToggleButton"; ToggleButton.Size=UDim2.new(0,40,0,40); ToggleButton.Position=UDim2.new(0,10,0,10); ToggleButton.BackgroundColor3=Color3.new(0,0,0); ToggleButton.TextColor3=Color3.new(1,1,1); ToggleButton.Text="K"; ToggleButton.Font=Enum.Font.GothamBold; ToggleButton.TextSize=28; ToggleButton.Parent=ScreenGui; applyRoundedCorners(ToggleButton,10); ToggleButton.Visible=false
