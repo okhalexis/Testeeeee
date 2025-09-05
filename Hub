@@ -83,7 +83,7 @@ local ErrorLabel
 local StorageKeyFileName = "KhalexisHubKey.txt"
 local validKeys = {
     khalexispremium100 = true,
-    khalexisquasela = true, -- Chave alterada
+    khalexisquasela = true, -- Chave alterada conforme solicitado
 }
 
 local function saveKeyLocally(key) pcall(function() if writefile then writefile(StorageKeyFileName, key) elseif write_file then write_file(StorageKeyFileName, key) end end) end
@@ -189,8 +189,13 @@ local function applyTheme(themeName)
     local MainFrame = MainFrameContainer:FindFirstChild("MainFrame")
     if not MainFrame then return end
 
-    local titleBar=MainFrame:FindFirstChild("TitleBar"); local categoryFrame=MainFrame:FindFirstChild("CategoryFrame"); local scriptFrame=MainFrame:FindFirstChild("ScriptFrame"); local footerBackground=MainFrame:FindFirstChild("FooterBackground")
-    MainFrame.BackgroundColor3 = palette.main_bg; MainFrame.BackgroundTransparency = palette.transparency
+    local titleBar=MainFrame:FindFirstChild("TitleBar")
+    local categoryFrame=MainFrame:FindFirstChild("CategoryFrame")
+    local scriptFrame=MainFrame:FindFirstChild("ScriptFrame")
+    local footerBackground=MainFrame:FindFirstChild("FooterBackground")
+
+    MainFrame.BackgroundColor3 = palette.main_bg
+    MainFrame.BackgroundTransparency = palette.transparency
     if titleBar then titleBar.BackgroundColor3=palette.title_bar end
     if categoryFrame then categoryFrame.BackgroundColor3=palette.category_bg end
     if scriptFrame then scriptFrame.BackgroundColor3=palette.script_frame_bg end
@@ -209,19 +214,58 @@ local function createHub()
     local uiScaler = Instance.new("UIScale")
     uiScaler.Parent = animationContainer
 
-    local frame = Instance.new("Frame"); frame.Name="MainFrame"; frame.Size=UDim2.new(1, 0, 1, 0); frame.Position=UDim2.new(0, 0, 0, 0); frame.BackgroundColor3=COLOR_BLACK; frame.BorderSizePixel=0; frame.Parent=animationContainer; frame.Visible=true; applyRoundedCorners(frame,12)
-    local hubBorder=Instance.new("UIStroke"); hubBorder.ApplyStrokeMode=Enum.ApplyStrokeMode.Border; hubBorder.Thickness=2; hubBorder.LineJoinMode=Enum.LineJoinMode.Round; hubBorder.Parent=frame
-    local hubGradient=Instance.new("UIGradient"); hubGradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,140,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(220,100,0))}); hubGradient.Rotation=45; hubGradient.Parent=hubBorder
+    local frame = Instance.new("Frame")
+    frame.Name="MainFrame"
+    frame.Size=UDim2.new(1, 0, 1, 0)
+    frame.Position=UDim2.new(0, 0, 0, 0)
+    frame.BackgroundColor3=COLOR_BLACK
+    frame.BorderSizePixel=0
+    frame.Parent=animationContainer
+    frame.Visible=true
+    applyRoundedCorners(frame,12)
 
-    local titleBar=Instance.new("Frame"); titleBar.Name="TitleBar"; titleBar.Size=UDim2.new(1,-10,0,35); titleBar.Position = UDim2.new(0, 5, 0, 5); titleBar.BackgroundColor3=COLOR_TITLEBAR; titleBar.BorderSizePixel=0; titleBar.Parent=frame
+    local hubBorder=Instance.new("UIStroke")
+    hubBorder.ApplyStrokeMode=Enum.ApplyStrokeMode.Border
+    hubBorder.Thickness=2
+    hubBorder.LineJoinMode=Enum.LineJoinMode.Round
+    hubBorder.Parent=frame
+    local hubGradient=Instance.new("UIGradient")
+    hubGradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,140,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(220,100,0))})
+    hubGradient.Rotation=45
+    hubGradient.Parent=hubBorder
+
+    local titleBar=Instance.new("Frame")
+    titleBar.Name="TitleBar"
+    titleBar.Size=UDim2.new(1,-10,0,35)
+    titleBar.Position = UDim2.new(0, 5, 0, 5)
+    titleBar.BackgroundColor3=COLOR_TITLEBAR
+    titleBar.BorderSizePixel=0
+    titleBar.Parent=frame
     applyRoundedCorners(titleBar,10)
 
-    local titleBarBorder=Instance.new("UIStroke"); titleBarBorder.ApplyStrokeMode=Enum.ApplyStrokeMode.Border; titleBarBorder.Thickness=1.5; titleBarBorder.LineJoinMode=Enum.LineJoinMode.Round; titleBarBorder.Parent=titleBar
-    local titleBarGradient=Instance.new("UIGradient"); titleBarGradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,140,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(220,100,0))}); titleBarGradient.Rotation=90; titleBarGradient.Parent=titleBarBorder
+    local titleBarBorder=Instance.new("UIStroke")
+    titleBarBorder.ApplyStrokeMode=Enum.ApplyStrokeMode.Border
+    titleBarBorder.Thickness=1.5
+    titleBarBorder.LineJoinMode=Enum.LineJoinMode.Round
+    titleBarBorder.Parent=titleBar
+    local titleBarGradient=Instance.new("UIGradient")
+    titleBarGradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,140,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(220,100,0))})
+    titleBarGradient.Rotation=90
+    titleBarGradient.Parent=titleBarBorder
 
-    local titleLabel=Instance.new("TextLabel"); titleLabel.Name="Title"; titleLabel.Size=UDim2.new(1,0,1,0); titleLabel.BackgroundTransparency=1; titleLabel.Text="Khalexis Hub"; titleLabel.TextColor3=COLOR_TEXT; titleLabel.Font=Enum.Font.GothamBold; titleLabel.TextSize=20; titleLabel.TextXAlignment=Enum.TextXAlignment.Center; titleLabel.TextYAlignment=Enum.TextYAlignment.Center; titleLabel.Parent=titleBar
+    local titleLabel=Instance.new("TextLabel")
+    titleLabel.Name="Title"
+    titleLabel.Size=UDim2.new(1,0,1,0)
+    titleLabel.BackgroundTransparency=1
+    titleLabel.Text="Khalexis Hub"
+    titleLabel.TextColor3=COLOR_TEXT
+    titleLabel.Font=Enum.Font.GothamBold
+    titleLabel.TextSize=20
+    titleLabel.TextXAlignment=Enum.TextXAlignment.Center
+    titleLabel.TextYAlignment=Enum.TextYAlignment.Center
+    titleLabel.Parent=titleBar
 
-    -- [NOVO] Botão de fechar com design moderno
+    -- Botão de fechar com design moderno
     local closeButton = Instance.new("TextButton")
     closeButton.Name = "CloseButton"
     closeButton.Size = UDim2.new(0, 28, 0, 28)
@@ -247,59 +291,264 @@ local function createHub()
         closeHubWithAnimation(animationContainer)
     end)
 
-    local searchBox=Instance.new("TextBox"); searchBox.Name="CategorySearchBox"; searchBox.Size=UDim2.new(0,180,0,30); searchBox.Position=UDim2.new(0,5,0,45); searchBox.BackgroundColor3=Color3.fromRGB(40,40,40); searchBox.TextColor3=COLOR_TEXT; searchBox.PlaceholderText="🔍 Pesquisar..."; searchBox.PlaceholderColor3=Color3.fromRGB(150,150,150); searchBox.Text=""; searchBox.Font=Enum.Font.Gotham; searchBox.TextSize=14; searchBox.ClearTextOnFocus=false; searchBox.Parent=frame; applyRoundedCorners(searchBox,8)
-    local searchBoxBorder=Instance.new("UIStroke"); searchBoxBorder.ApplyStrokeMode=Enum.ApplyStrokeMode.Border; searchBoxBorder.Thickness=1.5; searchBoxBorder.LineJoinMode=Enum.LineJoinMode.Round; searchBoxBorder.Parent=searchBox
-    local searchBoxGradient=Instance.new("UIGradient"); searchBoxGradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,140,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(220,100,0))}); searchBoxGradient.Rotation=90; searchBoxGradient.Parent=searchBoxBorder
+    local searchBox=Instance.new("TextBox")
+    searchBox.Name="CategorySearchBox"
+    searchBox.Size=UDim2.new(0,180,0,30)
+    searchBox.Position=UDim2.new(0,5,0,45)
+    searchBox.BackgroundColor3=Color3.fromRGB(40,40,40)
+    searchBox.TextColor3=COLOR_TEXT
+    searchBox.PlaceholderText="🔍 Pesquisar..."
+    searchBox.PlaceholderColor3=Color3.fromRGB(150,150,150)
+    searchBox.Text=""
+    searchBox.Font=Enum.Font.Gotham
+    searchBox.TextSize=14
+    searchBox.ClearTextOnFocus=false
+    searchBox.Parent=frame
+    applyRoundedCorners(searchBox,8)
 
-    local categoryFrame=Instance.new("ScrollingFrame"); categoryFrame.Name="CategoryFrame"; categoryFrame.Size=UDim2.new(0,180,1,-125); categoryFrame.Position=UDim2.new(0,5,0,80); categoryFrame.BackgroundColor3=COLOR_CATEGORY_BG; categoryFrame.BorderSizePixel=0; categoryFrame.ScrollBarThickness=6; categoryFrame.Parent=frame; applyRoundedCorners(categoryFrame,12)
-    local categoryFrameBorder=Instance.new("UIStroke"); categoryFrameBorder.ApplyStrokeMode=Enum.ApplyStrokeMode.Border; categoryFrameBorder.Thickness=1.5; categoryFrameBorder.LineJoinMode=Enum.LineJoinMode.Round; categoryFrameBorder.Parent=categoryFrame
-    local categoryFrameGradient=Instance.new("UIGradient"); categoryFrameGradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,140,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(220,100,0))}); categoryFrameGradient.Rotation=90; categoryFrameGradient.Parent=categoryFrameBorder
+    local searchBoxBorder=Instance.new("UIStroke")
+    searchBoxBorder.ApplyStrokeMode=Enum.ApplyStrokeMode.Border
+    searchBoxBorder.Thickness=1.5
+    searchBoxBorder.LineJoinMode=Enum.LineJoinMode.Round
+    searchBoxBorder.Parent=searchBox
+    local searchBoxGradient=Instance.new("UIGradient")
+    searchBoxGradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,140,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(220,100,0))})
+    searchBoxGradient.Rotation=90
+    searchBoxGradient.Parent=searchBoxBorder
 
-    local categoryContainer=Instance.new("Frame"); categoryContainer.Name="CategoryContainer"; categoryContainer.Size=UDim2.new(1,-10,0,0); categoryContainer.Position=UDim2.new(0,5,0,5); categoryContainer.BackgroundTransparency=1; categoryContainer.Parent=categoryFrame; categoryContainer.ClipsDescendants=true
-    local layoutCategory=Instance.new("UIListLayout"); layoutCategory.Padding=UDim.new(0,10); layoutCategory.SortOrder=Enum.SortOrder.LayoutOrder; layoutCategory.FillDirection=Enum.FillDirection.Vertical; layoutCategory.HorizontalAlignment=Enum.HorizontalAlignment.Center; layoutCategory.Parent=categoryContainer
+    local categoryFrame=Instance.new("ScrollingFrame")
+    categoryFrame.Name="CategoryFrame"
+    categoryFrame.Size=UDim2.new(0,180,1,-125)
+    categoryFrame.Position=UDim2.new(0,5,0,80)
+    categoryFrame.BackgroundColor3=COLOR_CATEGORY_BG
+    categoryFrame.BorderSizePixel=0
+    categoryFrame.ScrollBarThickness=6
+    categoryFrame.Parent=frame
+    applyRoundedCorners(categoryFrame,12)
+
+    local categoryFrameBorder=Instance.new("UIStroke")
+    categoryFrameBorder.ApplyStrokeMode=Enum.ApplyStrokeMode.Border
+    categoryFrameBorder.Thickness=1.5
+    categoryFrameBorder.LineJoinMode=Enum.LineJoinMode.Round
+    categoryFrameBorder.Parent=categoryFrame
+    local categoryFrameGradient=Instance.new("UIGradient")
+    categoryFrameGradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,140,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(220,100,0))})
+    categoryFrameGradient.Rotation=90
+    categoryFrameGradient.Parent=categoryFrameBorder
+
+    local categoryContainer=Instance.new("Frame")
+    categoryContainer.Name="CategoryContainer"
+    categoryContainer.Size=UDim2.new(1,-10,0,0)
+    categoryContainer.Position=UDim2.new(0,5,0,5)
+    categoryContainer.BackgroundTransparency=1
+    categoryContainer.Parent=categoryFrame
+    categoryContainer.ClipsDescendants=true
+    local layoutCategory=Instance.new("UIListLayout")
+    layoutCategory.Padding=UDim.new(0,10)
+    layoutCategory.SortOrder=Enum.SortOrder.LayoutOrder
+    layoutCategory.FillDirection=Enum.FillDirection.Vertical
+    layoutCategory.HorizontalAlignment=Enum.HorizontalAlignment.Center
+    layoutCategory.Parent=categoryContainer
     layoutCategory:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function() categoryContainer.Size=UDim2.new(1,-10,0,layoutCategory.AbsoluteContentSize.Y) end)
     searchBox:GetPropertyChangedSignal("Text"):Connect(function() local s=searchBox.Text:lower(); for _,b in ipairs(categoryContainer:GetChildren()) do if b:IsA("TextButton") then local n=b.Text:lower(); b.Visible=string.find(n,s,1,true) end end end)
 
-    local scriptFrame=Instance.new("ScrollingFrame"); scriptFrame.Name="ScriptFrame"; scriptFrame.Size=UDim2.new(1,-195,1,-125); scriptFrame.Position=UDim2.new(0,190,0,45); scriptFrame.BackgroundColor3=COLOR_BLACK; scriptFrame.BorderSizePixel=0; scriptFrame.ScrollBarThickness=6; scriptFrame.Parent=frame; applyRoundedCorners(scriptFrame,16)
-    local scriptFrameBorder=Instance.new("UIStroke"); scriptFrameBorder.ApplyStrokeMode=Enum.ApplyStrokeMode.Border; scriptFrameBorder.Thickness=1.5; scriptFrameBorder.LineJoinMode=Enum.LineJoinMode.Round; scriptFrameBorder.Parent=scriptFrame
-    local scriptFrameGradient=Instance.new("UIGradient"); scriptFrameGradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,140,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(220,100,0))}); scriptFrameGradient.Rotation=90; scriptFrameGradient.Parent=scriptFrameBorder
+    local scriptFrame=Instance.new("ScrollingFrame")
+    scriptFrame.Name="ScriptFrame"
+    scriptFrame.Size=UDim2.new(1,-195,1,-125)
+    scriptFrame.Position=UDim2.new(0,190,0,45)
+    scriptFrame.BackgroundColor3=COLOR_BLACK
+    scriptFrame.BorderSizePixel=0
+    scriptFrame.ScrollBarThickness=6
+    scriptFrame.Parent=frame
+    applyRoundedCorners(scriptFrame,16)
 
-    local scriptContainer=Instance.new("Frame"); scriptContainer.Name="ScriptContainer"; scriptContainer.Size=UDim2.new(1,-20,0,0); scriptContainer.Position=UDim2.new(0,10,0,10); scriptContainer.BackgroundTransparency=1; scriptContainer.Parent=scriptFrame; scriptContainer.ClipsDescendants=true
-    local layoutScript=Instance.new("UIListLayout"); layoutScript.Padding=UDim.new(0,10); layoutScript.SortOrder=Enum.SortOrder.LayoutOrder; layoutScript.FillDirection=Enum.FillDirection.Vertical; layoutScript.HorizontalAlignment=Enum.HorizontalAlignment.Center; layoutScript.Parent=scriptContainer
+    local scriptFrameBorder=Instance.new("UIStroke")
+    scriptFrameBorder.ApplyStrokeMode=Enum.ApplyStrokeMode.Border
+    scriptFrameBorder.Thickness=1.5
+    scriptFrameBorder.LineJoinMode=Enum.LineJoinMode.Round
+    scriptFrameBorder.Parent=scriptFrame
+    local scriptFrameGradient=Instance.new("UIGradient")
+    scriptFrameGradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,140,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(220,100,0))})
+    scriptFrameGradient.Rotation=90
+    scriptFrameGradient.Parent=scriptFrameBorder
+
+    local scriptContainer=Instance.new("Frame")
+    scriptContainer.Name="ScriptContainer"
+    scriptContainer.Size=UDim2.new(1,-20,0,0)
+    scriptContainer.Position=UDim2.new(0,10,0,10)
+    scriptContainer.BackgroundTransparency=1
+    scriptContainer.Parent=scriptFrame
+    scriptContainer.ClipsDescendants=true
+    local layoutScript=Instance.new("UIListLayout")
+    layoutScript.Padding=UDim.new(0,10)
+    layoutScript.SortOrder=Enum.SortOrder.LayoutOrder
+    layoutScript.FillDirection=Enum.FillDirection.Vertical
+    layoutScript.HorizontalAlignment=Enum.HorizontalAlignment.Center
+    layoutScript.Parent=scriptContainer
     layoutScript:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function() scriptContainer.Size=UDim2.new(1,-20,0,layoutScript.AbsoluteContentSize.Y) end)
 
-    local footerBackground=Instance.new("Frame"); footerBackground.Name="FooterBackground"; footerBackground.Size=UDim2.new(1,-10,0,70); footerBackground.Position=UDim2.new(0,5,1,-75); footerBackground.BackgroundColor3=COLOR_TITLEBAR; footerBackground.BackgroundTransparency=0; footerBackground.BorderSizePixel=0; footerBackground.Parent=frame; applyRoundedCorners(footerBackground,10)
-    local footerBorder=Instance.new("UIStroke"); footerBorder.ApplyStrokeMode=Enum.ApplyStrokeMode.Border; footerBorder.Thickness=1.5; footerBorder.LineJoinMode=Enum.LineJoinMode.Round; footerBorder.Parent=footerBackground
-    local footerGradient=Instance.new("UIGradient"); footerGradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,140,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(220,100,0))}); footerGradient.Rotation=90; footerGradient.Parent=footerBorder
+    local footerBackground=Instance.new("Frame")
+    footerBackground.Name="FooterBackground"
+    footerBackground.Size=UDim2.new(1,-10,0,70)
+    footerBackground.Position=UDim2.new(0,5,1,-75)
+    footerBackground.BackgroundColor3=COLOR_TITLEBAR
+    footerBackground.BackgroundTransparency=0
+    footerBackground.BorderSizePixel=0
+    footerBackground.Parent=frame
+    applyRoundedCorners(footerBackground,10)
 
-    local footerText=Instance.new("TextLabel"); footerText.Name="FooterText"; footerText.Text="By Khalexis"; footerText.Font=Enum.Font.GothamBold; footerText.TextSize=14; footerText.TextColor3=COLOR_FOOTER_TEXT; footerText.BackgroundTransparency=1; footerText.Size=UDim2.new(1, 0, 1, 0);
-    footerText.Position=UDim2.new(0, 0, 0, 5);
-    footerText.TextYAlignment = Enum.TextYAlignment.Top; footerText.Parent=footerBackground
+    local footerBorder=Instance.new("UIStroke")
+    footerBorder.ApplyStrokeMode=Enum.ApplyStrokeMode.Border
+    footerBorder.Thickness=1.5
+    footerBorder.LineJoinMode=Enum.LineJoinMode.Round
+    footerBorder.Parent=footerBackground
+    local footerGradient=Instance.new("UIGradient")
+    footerGradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,140,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(220,100,0))})
+    footerGradient.Rotation=90
+    footerGradient.Parent=footerBorder
 
-    local footerRightContainer = Instance.new("Frame"); footerRightContainer.Name = "FooterRightContainer"; footerRightContainer.Size = UDim2.new(0.5, 0, 1, 0); footerRightContainer.Position = UDim2.new(0.5, 0, 0, 0); footerRightContainer.BackgroundTransparency = 1; footerRightContainer.Parent = footerBackground
-    local footerContainerPadding = Instance.new("UIPadding"); footerContainerPadding.PaddingRight = UDim.new(0, 10); footerContainerPadding.Parent = footerRightContainer
-    local footerTextLayout = Instance.new("UIListLayout"); footerTextLayout.FillDirection = Enum.FillDirection.Vertical; footerTextLayout.VerticalAlignment = Enum.VerticalAlignment.Center; footerTextLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right; footerTextLayout.SortOrder = Enum.SortOrder.LayoutOrder; footerTextLayout.Padding = UDim.new(0, 3); footerTextLayout.Parent = footerRightContainer
+    local footerText=Instance.new("TextLabel")
+    footerText.Name="FooterText"
+    footerText.Text="By Khalexis"
+    footerText.Font=Enum.Font.GothamBold
+    footerText.TextSize=14
+    footerText.TextColor3=COLOR_FOOTER_TEXT
+    footerText.BackgroundTransparency=1
+    footerText.Size=UDim2.new(1, 0, 1, 0)
+    footerText.Position=UDim2.new(0, 0, 0, 5)
+    footerText.TextYAlignment = Enum.TextYAlignment.Top
+    footerText.Parent=footerBackground
 
-    local ytLabel=Instance.new("TextLabel"); ytLabel.Name="YouTubeLabel"; ytLabel.Text="Youtube: Khalexis"; ytLabel.Font=Enum.Font.Gotham; ytLabel.TextSize=12; ytLabel.TextColor3=Color3.fromRGB(180,180,180); ytLabel.BackgroundTransparency=1; ytLabel.Size=UDim2.new(1, 0, 0, 15); ytLabel.TextXAlignment=Enum.TextXAlignment.Right; ytLabel.LayoutOrder = 1; ytLabel.Parent=footerRightContainer
-    local discordLabel=Instance.new("TextLabel"); discordLabel.Name="DiscordLabel"; discordLabel.Text="Discord: discord.gg/aNaFpb2Qsb"; discordLabel.Font=Enum.Font.Gotham; discordLabel.TextSize=12; discordLabel.TextColor3=Color3.fromRGB(180,180,180); discordLabel.BackgroundTransparency=1; discordLabel.Size=UDim2.new(1, 0, 0, 15); discordLabel.TextXAlignment=Enum.TextXAlignment.Right; discordLabel.LayoutOrder = 2; discordLabel.Parent=footerRightContainer
-    local hintLabel=Instance.new("TextLabel"); hintLabel.Name="DudaLabel"; hintLabel.Text="Se tiver alguma dúvida entre no Discord!"; hintLabel.Font=Enum.Font.Gotham; hintLabel.TextSize=10; hintLabel.TextColor3=Color3.fromRGB(150,150,150); hintLabel.BackgroundTransparency=1; hintLabel.Size=UDim2.new(1, 0, 0, 12); hintLabel.TextXAlignment=Enum.TextXAlignment.Right; hintLabel.LayoutOrder = 3; hintLabel.Parent=footerRightContainer
+    local footerRightContainer = Instance.new("Frame")
+    footerRightContainer.Name = "FooterRightContainer"
+    footerRightContainer.Size = UDim2.new(0.5, 0, 1, 0)
+    footerRightContainer.Position = UDim2.new(0.5, 0, 0, 0)
+    footerRightContainer.BackgroundTransparency = 1
+    footerRightContainer.Parent = footerBackground
+    local footerContainerPadding = Instance.new("UIPadding")
+    footerContainerPadding.PaddingRight = UDim.new(0, 10)
+    footerContainerPadding.Parent = footerRightContainer
+    local footerTextLayout = Instance.new("UIListLayout")
+    footerTextLayout.FillDirection = Enum.FillDirection.Vertical
+    footerTextLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+    footerTextLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
+    footerTextLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    footerTextLayout.Padding = UDim.new(0, 3)
+    footerTextLayout.Parent = footerRightContainer
 
-    local playerInfo=Instance.new("Frame"); playerInfo.Name="PlayerInfoFrame"; playerInfo.Size=UDim2.new(0,150,0,40); playerInfo.Position=UDim2.new(0,10,0.5,-20); playerInfo.BackgroundTransparency=1; playerInfo.Parent=footerBackground
-    local avatar=Instance.new("ImageLabel"); avatar.Name="AvatarImage"; avatar.Size=UDim2.new(0,36,0,36); avatar.Position=UDim2.new(0,0,0,2); avatar.BackgroundColor3=COLOR_SCRIPT_BTN; avatar.BorderSizePixel=0; avatar.Parent=playerInfo; avatar.ScaleType=Enum.ScaleType.Fit; applyRoundedCorners(avatar,18)
-    local thumbType,thumbSize=Enum.ThumbnailType.HeadShot,Enum.ThumbnailSize.Size48x48; local thumbContent,_=Players:GetUserThumbnailAsync(userId,thumbType,thumbSize); avatar.Image=thumbContent
-    local playerNameLabel=Instance.new("TextLabel"); playerNameLabel.Name="PlayerNameLabel"; playerNameLabel.Size=UDim2.new(1,-40,1,0); playerNameLabel.Position=UDim2.new(0,40,0,0); playerNameLabel.BackgroundTransparency=1; playerNameLabel.Text=userName; playerNameLabel.TextColor3=Color3.fromRGB(200,200,200); playerNameLabel.Font=Enum.Font.Gotham; playerNameLabel.TextSize=16; playerNameLabel.TextXAlignment=Enum.TextXAlignment.Left; playerNameLabel.Parent=playerInfo
+    local ytLabel=Instance.new("TextLabel")
+    ytLabel.Name="YouTubeLabel"
+    ytLabel.Text="Youtube: Khalexis"
+    ytLabel.Font=Enum.Font.Gotham
+    ytLabel.TextSize=12
+    ytLabel.TextColor3=Color3.fromRGB(180,180,180)
+    ytLabel.BackgroundTransparency=1
+    ytLabel.Size=UDim2.new(1, 0, 0, 15)
+    ytLabel.TextXAlignment=Enum.TextXAlignment.Right
+    ytLabel.LayoutOrder = 1
+    ytLabel.Parent=footerRightContainer
+    local discordLabel=Instance.new("TextLabel")
+    discordLabel.Name="DiscordLabel"
+    discordLabel.Text="Discord: discord.gg/aNaFpb2Qsb"
+    discordLabel.Font=Enum.Font.Gotham
+    discordLabel.TextSize=12
+    discordLabel.TextColor3=Color3.fromRGB(180,180,180)
+    discordLabel.BackgroundTransparency=1
+    discordLabel.Size=UDim2.new(1, 0, 0, 15)
+    discordLabel.TextXAlignment=Enum.TextXAlignment.Right
+    discordLabel.LayoutOrder = 2
+    discordLabel.Parent=footerRightContainer
+    local hintLabel=Instance.new("TextLabel")
+    hintLabel.Name="DudaLabel"
+    hintLabel.Text="Se tiver alguma dúvida entre no Discord!"
+    hintLabel.Font=Enum.Font.Gotham
+    hintLabel.TextSize=10
+    hintLabel.TextColor3=Color3.fromRGB(150,150,150)
+    hintLabel.BackgroundTransparency=1
+    hintLabel.Size=UDim2.new(1, 0, 0, 12)
+    hintLabel.TextXAlignment=Enum.TextXAlignment.Right
+    hintLabel.LayoutOrder = 3
+    hintLabel.Parent=footerRightContainer
 
-    local dragging=false; local dragInput,dragStart,startPos
-    local function updatePos(input) local delta=input.Position-dragStart; animationContainer.Position=UDim2.new(startPos.X.Scale,startPos.X.Offset+delta.X,startPos.Y.Scale,startPos.Y.Offset+delta.Y) end
-    titleBar.InputBegan:Connect(function(input) if input.UserInputType==Enum.UserInputType.MouseButton1 or input.UserInputType==Enum.UserInputType.Touch then dragging=true; dragStart=input.Position; startPos=animationContainer.Position; local c; c=input.Changed:Connect(function() if input.UserInputState==Enum.UserInputState.End then dragging=false; c:Disconnect() end end) end end)
-    UserInputService.InputChanged:Connect(function(input) if dragging and (input.UserInputType==Enum.UserInputType.MouseMovement or input.UserInputType==Enum.UserInputType.Touch) then updatePos(input) end end)
+    local playerInfo=Instance.new("Frame")
+    playerInfo.Name="PlayerInfoFrame"
+    playerInfo.Size=UDim2.new(0,150,0,40)
+    playerInfo.Position=UDim2.new(0,10,0.5,-20)
+    playerInfo.BackgroundTransparency=1
+    playerInfo.Parent=footerBackground
+    local avatar=Instance.new("ImageLabel")
+    avatar.Name="AvatarImage"
+    avatar.Size=UDim2.new(0,36,0,36)
+    avatar.Position=UDim2.new(0,0,0,2)
+    avatar.BackgroundColor3=COLOR_SCRIPT_BTN
+    avatar.BorderSizePixel=0
+    avatar.Parent=playerInfo
+    avatar.ScaleType=Enum.ScaleType.Fit
+    applyRoundedCorners(avatar,18)
+    local thumbType,thumbSize=Enum.ThumbnailType.HeadShot,Enum.ThumbnailSize.Size48x48
+    local thumbContent,_=Players:GetUserThumbnailAsync(userId,thumbType,thumbSize)
+    avatar.Image=thumbContent
+    local playerNameLabel=Instance.new("TextLabel")
+    playerNameLabel.Name="PlayerNameLabel"
+    playerNameLabel.Size=UDim2.new(1,-40,1,0)
+    playerNameLabel.Position=UDim2.new(0,40,0,0)
+    playerNameLabel.BackgroundTransparency=1
+    playerNameLabel.Text=userName
+    playerNameLabel.TextColor3=Color3.fromRGB(200,200,200)
+    playerNameLabel.Font=Enum.Font.Gotham
+    playerNameLabel.TextSize=16
+    playerNameLabel.TextXAlignment=Enum.TextXAlignment.Left
+    playerNameLabel.Parent=playerInfo
+
+    local dragging=false
+    local dragInput,dragStart,startPos
+    local function updatePos(input)
+        local delta=input.Position-dragStart
+        animationContainer.Position=UDim2.new(startPos.X.Scale,startPos.X.Offset+delta.X,startPos.Y.Scale,startPos.Y.Offset+delta.Y)
+    end
+    titleBar.InputBegan:Connect(function(input)
+        if input.UserInputType==Enum.UserInputType.MouseButton1 or input.UserInputType==Enum.UserInputType.Touch then
+            dragging=true
+            dragStart=input.Position
+            startPos=animationContainer.Position
+            local c
+            c=input.Changed:Connect(function()
+                if input.UserInputState==Enum.UserInputState.Ended then
+                    dragging=false
+                    c:Disconnect()
+                end
+            end)
+        end
+    end)
+    UserInputService.InputChanged:Connect(function(input)
+        if dragging and (input.UserInputType==Enum.UserInputType.MouseMovement or input.UserInputType==Enum.UserInputType.Touch) then
+            updatePos(input)
+        end
+    end)
 
     local function clearScripts() for _,c in pairs(scriptContainer:GetChildren()) do if c:IsA("GuiObject") then c:Destroy() end end end
 
     local function createScriptButton(name, func)
-        local btn=Instance.new("TextButton"); btn.Size=UDim2.new(1,0,0,35); btn.BackgroundColor3=COLOR_SCRIPT_BTN; btn.BorderSizePixel=0; btn.TextColor3=COLOR_TEXT; btn.Font=Enum.Font.Gotham; btn.TextSize=16; btn.Text=name; btn.TextXAlignment=Enum.TextXAlignment.Center; btn.Parent=scriptContainer; applyRoundedCorners(btn,12)
-        local border=Instance.new("UIStroke"); border.ApplyStrokeMode=Enum.ApplyStrokeMode.Border; border.Thickness=1.5; border.LineJoinMode=Enum.LineJoinMode.Round; border.Parent=btn
-        local gradient=Instance.new("UIGradient"); gradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,140,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(220,100,0))}); gradient.Rotation=90; gradient.Parent=border
+        local btn=Instance.new("TextButton")
+        btn.Size=UDim2.new(1,0,0,35)
+        btn.BackgroundColor3=COLOR_SCRIPT_BTN
+        btn.BorderSizePixel=0
+        btn.TextColor3=COLOR_TEXT
+        btn.Font=Enum.Font.Gotham
+        btn.TextSize=16
+        btn.Text=name
+        btn.TextXAlignment=Enum.TextXAlignment.Center
+        btn.Parent=scriptContainer
+        applyRoundedCorners(btn,12)
+        local border=Instance.new("UIStroke")
+        border.ApplyStrokeMode=Enum.ApplyStrokeMode.Border
+        border.Thickness=1.5
+        border.LineJoinMode=Enum.LineJoinMode.Round
+        border.Parent=btn
+        local gradient=Instance.new("UIGradient")
+        gradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,140,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(220,100,0))})
+        gradient.Rotation=90
+        gradient.Parent=border
 
         btn.MouseButton1Click:Connect(function()
             btn.Text = "Executando..."
@@ -315,24 +564,41 @@ local function createHub()
     end
 
     local function createUpdateLabel(text, textColor)
-        local lbl=Instance.new("TextLabel");
-        lbl.Size=UDim2.new(1,0,0,220);
-        lbl.BackgroundTransparency=1;
-        lbl.TextColor3=textColor or COLOR_TEXT; -- Usar textColor se fornecido, senão COLOR_TEXT
-        lbl.Font=Enum.Font.Gotham;
-        lbl.TextSize=16;
-        lbl.Text=text;
-        lbl.TextWrapped=true;
-        lbl.TextXAlignment=Enum.TextXAlignment.Center;
-        lbl.TextYAlignment=Enum.TextYAlignment.Top;
-        lbl.Parent=scriptContainer;
+        local lbl=Instance.new("TextLabel")
+        lbl.Size=UDim2.new(1,0,0,220)
+        lbl.BackgroundTransparency=1
+        lbl.TextColor3=textColor or COLOR_TEXT -- Usar textColor se fornecido, senão COLOR_TEXT
+        lbl.Font=Enum.Font.Gotham
+        lbl.TextSize=16
+        lbl.Text=text
+        lbl.TextWrapped=true
+        lbl.TextXAlignment=Enum.TextXAlignment.Center
+        lbl.TextYAlignment=Enum.TextYAlignment.Top
+        lbl.Parent=scriptContainer
         return lbl
     end
 
     local function createCategoryButton(name, contents, layoutOrder)
-        local btn=Instance.new("TextButton"); btn.Size=UDim2.new(1,0,0,28); btn.BackgroundColor3=COLOR_CATEGORY_BTN; btn.BorderSizePixel=0; btn.TextColor3=Color3.fromRGB(230,230,230); btn.Font=Enum.Font.Gotham; btn.TextSize=11; btn.Text=name; btn.TextXAlignment=Enum.TextXAlignment.Center; btn.Parent=categoryContainer; applyRoundedCorners(btn,8)
-        local border=Instance.new("UIStroke"); border.ApplyStrokeMode=Enum.ApplyStrokeMode.Border; border.Thickness=1.5; border.LineJoinMode=Enum.LineJoinMode.Round; border.Parent=btn
-        local gradient=Instance.new("UIGradient"); gradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,140,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(220,100,0))}); gradient.Rotation=90; gradient.Parent=border
+        local btn=Instance.new("TextButton")
+        btn.Size=UDim2.new(1,0,0,28)
+        btn.BackgroundColor3=COLOR_CATEGORY_BTN
+        btn.BorderSizePixel=0
+        btn.TextColor3=Color3.fromRGB(230,230,230)
+        btn.Font=Enum.Font.Gotham
+        btn.TextSize=11
+        btn.Text=name
+        btn.TextXAlignment=Enum.TextXAlignment.Center
+        btn.Parent=categoryContainer
+        applyRoundedCorners(btn,8)
+        local border=Instance.new("UIStroke")
+        border.ApplyStrokeMode=Enum.ApplyStrokeMode.Border
+        border.Thickness=1.5
+        border.LineJoinMode=Enum.LineJoinMode.Round
+        border.Parent=btn
+        local gradient=Instance.new("UIGradient")
+        gradient.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(255,140,0)),ColorSequenceKeypoint.new(1,Color3.fromRGB(220,100,0))})
+        gradient.Rotation=90
+        gradient.Parent=border
         if layoutOrder then btn.LayoutOrder = layoutOrder end
 
         btn.MouseButton1Click:Connect(function() clearScripts(); if typeof(contents)=="table" then for _,s in pairs(contents) do createScriptButton(s.Name,s.Func) end elseif typeof(contents)=="string" then createUpdateLabel(contents) elseif typeof(contents)=="function" then contents() end end)
@@ -392,39 +658,192 @@ local function createHub()
 end
 
 local function showLoadingAndOpenHub()
-    LoadingScreen,StopLoadingAnim=showLoadingScreen(); wait(2)
+    LoadingScreen,StopLoadingAnim=showLoadingScreen()
+    wait(2)
     if StopLoadingAnim then StopLoadingAnim() end
     if LoadingScreen and LoadingScreen.Parent then LoadingScreen:Destroy() end
-    MainFrameContainer=createHub(); HubOpen=true; ToggleButton.Visible=false
+    MainFrameContainer=createHub()
+    HubOpen=true
+    ToggleButton.Visible=false
 end
 
 local function validateKeyAndOpen(key,isAuto)
     local lowerKey=key:lower()
-    if validKeys[lowerKey] then saveKeyLocally(lowerKey); if KeyFrame and KeyFrame.Parent then KeyFrame:Destroy(); KeyFrame=nil end; showLoadingAndOpenHub(); ToggleButton.Visible=false; if isAuto then showAutoMessage("Khalexis Hub carregado! Sua key foi verificada automaticamente.") end; return true
-    else removeLocalKey(); if not isAuto then showError("Key incorreta") end; return false end
+    if validKeys[lowerKey] then
+        saveKeyLocally(lowerKey)
+        if KeyFrame and KeyFrame.Parent then KeyFrame:Destroy(); KeyFrame=nil end
+        showLoadingAndOpenHub()
+        ToggleButton.Visible=false
+        if isAuto then showAutoMessage("Khalexis Hub carregado! Sua key foi verificada automaticamente.") end
+        return true
+    else
+        removeLocalKey()
+        if not isAuto then showError("Key incorreta") end
+        return false
+    end
 end
 
 local function tryAutoValidate() local savedKey=loadKeyLocally(); if savedKey and validKeys[savedKey] then return validateKeyAndOpen(savedKey,true) else removeLocalKey(); return false end end
 
 local function createKeyInputFrame()
-    local frame=Instance.new("Frame"); frame.Name="KeyFrame"; frame.Size=UDim2.new(0,350,0,260); frame.Position=UDim2.new(0.5,-175,0.5,-130); frame.BackgroundColor3=Color3.fromRGB(30,30,30); frame.BorderSizePixel=0; frame.Parent=ScreenGui; applyRoundedCorners(frame,12)
-    local titleLabel=Instance.new("TextLabel"); titleLabel.Name="KeyTitle"; titleLabel.Size=UDim2.new(1,0,0,36); titleLabel.BackgroundTransparency=1; titleLabel.Text="🔒 COLE NO ESPAÇO ABAIXO A SUA KEY 🔒"; titleLabel.Font=Enum.Font.GothamBold; titleLabel.TextSize=16; titleLabel.TextYAlignment=Enum.TextYAlignment.Center; titleLabel.TextXAlignment=Enum.TextXAlignment.Center; titleLabel.Parent=frame
-    local byLabel=Instance.new("TextLabel"); byLabel.Name="ByLabel"; byLabel.Size=UDim2.new(1,0,0,20); byLabel.Position=UDim2.new(0,0,0,40); byLabel.BackgroundTransparency=1; byLabel.TextColor3=COLOR_FOOTER_TEXT; byLabel.Font=Enum.Font.Gotham; byLabel.TextSize=12; byLabel.Text="by khalexis"; byLabel.TextXAlignment=Enum.TextXAlignment.Center; byLabel.TextYAlignment=Enum.TextYAlignment.Top; byLabel.Parent=frame
+    local frame=Instance.new("Frame")
+    frame.Name="KeyFrame"
+    frame.Size=UDim2.new(0,350,0,260)
+    frame.Position=UDim2.new(0.5,-175,0.5,-130)
+    frame.BackgroundColor3=Color3.fromRGB(30,30,30)
+    frame.BorderSizePixel=0
+    frame.Parent=ScreenGui
+    applyRoundedCorners(frame,12)
+
+    local titleLabel=Instance.new("TextLabel")
+    titleLabel.Name="KeyTitle"
+    titleLabel.Size=UDim2.new(1,0,0,36)
+    titleLabel.BackgroundTransparency=1
+    titleLabel.Text="🔒 COLE NO ESPAÇO ABAIXO A SUA KEY 🔒"
+    titleLabel.Font=Enum.Font.GothamBold
+    titleLabel.TextSize=16
+    titleLabel.TextYAlignment=Enum.TextYAlignment.Center
+    titleLabel.TextXAlignment=Enum.TextXAlignment.Center
+    titleLabel.Parent=frame
+    local byLabel=Instance.new("TextLabel")
+    byLabel.Name="ByLabel"
+    byLabel.Size=UDim2.new(1,0,0,20)
+    byLabel.Position=UDim2.new(0,0,0,40)
+    byLabel.BackgroundTransparency=1
+    byLabel.TextColor3=COLOR_FOOTER_TEXT
+    byLabel.Font=Enum.Font.Gotham
+    byLabel.TextSize=12
+    byLabel.Text="by khalexis"
+    byLabel.TextXAlignment=Enum.TextXAlignment.Center
+    byLabel.TextYAlignment=Enum.TextYAlignment.Top
+    byLabel.Parent=frame
     spawn(function() local hue=0; while frame and frame.Parent do hue=(hue+0.01)%1; titleLabel.TextColor3=Color3.fromHSV(hue,1,1); wait(0.03) end end)
-    local keyBox=Instance.new("TextBox"); keyBox.Name="KeyBox"; keyBox.Size=UDim2.new(1,-40,0,40); keyBox.Position=UDim2.new(0,20,0,65); keyBox.BackgroundColor3=Color3.fromRGB(45,45,45); keyBox.TextColor3=COLOR_TEXT; keyBox.Font=Enum.Font.Gotham; keyBox.TextSize=18; keyBox.ClearTextOnFocus=false; keyBox.Text=""; keyBox.PlaceholderText=""; applyRoundedCorners(keyBox,8); keyBox.Parent=frame
-    local confirmBtn=Instance.new("TextButton"); confirmBtn.Name="EnterButton"; confirmBtn.Size=UDim2.new(0,100,0,35); confirmBtn.Position=UDim2.new(0.5,-50,0,110); confirmBtn.BackgroundColor3=COLOR_SCRIPT_BTN; confirmBtn.TextColor3=COLOR_TEXT; confirmBtn.Font=Enum.Font.GothamBold; confirmBtn.TextSize=18; confirmBtn.Text="Confirmar"; applyRoundedCorners(confirmBtn,8); confirmBtn.Parent=frame
-    local copyKeyBtn=Instance.new("TextButton"); copyKeyBtn.Name="PegarKeyButton"; copyKeyBtn.Size=UDim2.new(0,80,0,28); copyKeyBtn.Position=UDim2.new(0.5,-40,0,150); copyKeyBtn.BackgroundColor3=COLOR_SCRIPT_BTN; copyKeyBtn.TextColor3=Color3.new(1,1,1); copyKeyBtn.Font=Enum.Font.GothamBold; copyKeyBtn.TextSize=12; copyKeyBtn.Text="Pegar Key"; applyRoundedCorners(copyKeyBtn,8); copyKeyBtn.Parent=frame
-    local infoLabel=Instance.new("TextLabel"); infoLabel.Name="InfoText"; infoLabel.Size=UDim2.new(1,-20,0,30); infoLabel.Position=UDim2.new(0,10,0,185); infoLabel.BackgroundTransparency=1; infoLabel.Font=Enum.Font.GothamBold; infoLabel.TextSize=12; infoLabel.Text="CLIQUE EM PEGAR KEY E COLE NO NAVEGADOR"; infoLabel.TextWrapped=true; infoLabel.TextXAlignment=Enum.TextXAlignment.Center; infoLabel.TextYAlignment=Enum.TextYAlignment.Top; infoLabel.Parent=frame
-    local subInfoLabel=Instance.new("TextLabel"); subInfoLabel.Name="SubInfoText"; subInfoLabel.Size=UDim2.new(1,-20,0,20); subInfoLabel.Position=UDim2.new(0,10,0,215); subInfoLabel.BackgroundTransparency=1; subInfoLabel.Font=Enum.Font.Gotham; subInfoLabel.TextSize=14; subInfoLabel.TextColor3=COLOR_FOOTER_TEXT; subInfoLabel.TextWrapped=false; subInfoLabel.TextXAlignment=Enum.TextXAlignment.Center; subInfoLabel.TextYAlignment=Enum.TextYAlignment.Top; subInfoLabel.Text="Sistema de Key - Khalexis Hub"; subInfoLabel.Parent=frame
+
+    local keyBox=Instance.new("TextBox")
+    keyBox.Name="KeyBox"
+    keyBox.Size=UDim2.new(1,-40,0,40)
+    keyBox.Position=UDim2.new(0,20,0,65)
+    keyBox.BackgroundColor3=Color3.fromRGB(45,45,45)
+    keyBox.TextColor3=COLOR_TEXT
+    keyBox.Font=Enum.Font.Gotham
+    keyBox.TextSize=18
+    keyBox.ClearTextOnFocus=false
+    keyBox.Text=""
+    keyBox.PlaceholderText=""
+    applyRoundedCorners(keyBox,8)
+    keyBox.Parent=frame
+
+    local confirmBtn=Instance.new("TextButton")
+    confirmBtn.Name="EnterButton"
+    confirmBtn.Size=UDim2.new(0,100,0,35)
+    confirmBtn.Position=UDim2.new(0.5,-50,0,110)
+    confirmBtn.BackgroundColor3=COLOR_SCRIPT_BTN
+    confirmBtn.TextColor3=COLOR_TEXT
+    confirmBtn.Font=Enum.Font.GothamBold
+    confirmBtn.TextSize=18
+    confirmBtn.Text="Confirmar"
+    applyRoundedCorners(confirmBtn,8)
+    confirmBtn.Parent=frame
+
+    local copyKeyBtn=Instance.new("TextButton")
+    copyKeyBtn.Name="PegarKeyButton"
+    copyKeyBtn.Size=UDim2.new(0,80,0,28)
+    copyKeyBtn.Position=UDim2.new(0.5,-40,0,150)
+    copyKeyBtn.BackgroundColor3=COLOR_SCRIPT_BTN
+    copyKeyBtn.TextColor3=Color3.new(1,1,1)
+    copyKeyBtn.Font=Enum.Font.GothamBold
+    copyKeyBtn.TextSize=12
+    copyKeyBtn.Text="Pegar Key"
+    applyRoundedCorners(copyKeyBtn,8)
+    copyKeyBtn.Parent=frame
+
+    local infoLabel=Instance.new("TextLabel")
+    infoLabel.Name="InfoText"
+    infoLabel.Size=UDim2.new(1,-20,0,30)
+    infoLabel.Position=UDim2.new(0,10,0,185)
+    infoLabel.BackgroundTransparency=1
+    infoLabel.Font=Enum.Font.GothamBold
+    infoLabel.TextSize=12
+    infoLabel.Text="CLIQUE EM PEGAR KEY E COLE NO NAVEGADOR"
+    infoLabel.TextWrapped=true
+    infoLabel.TextXAlignment=Enum.TextXAlignment.Center
+    infoLabel.TextYAlignment=Enum.TextYAlignment.Top
+    infoLabel.Parent=frame
+    local subInfoLabel=Instance.new("TextLabel")
+    subInfoLabel.Name="SubInfoText"
+    subInfoLabel.Size=UDim2.new(1,-20,0,20)
+    subInfoLabel.Position=UDim2.new(0,10,0,215)
+    subInfoLabel.BackgroundTransparency=1
+    subInfoLabel.Font=Enum.Font.Gotham
+    subInfoLabel.TextSize=14
+    subInfoLabel.TextColor3=COLOR_FOOTER_TEXT
+    subInfoLabel.TextWrapped=false
+    subInfoLabel.TextXAlignment=Enum.TextXAlignment.Center
+    subInfoLabel.TextYAlignment=Enum.TextYAlignment.Top
+    subInfoLabel.Text="Sistema de Key - Khalexis Hub"
+    subInfoLabel.Parent=frame
     spawn(function() local hue=0; while frame and frame.Parent do hue=(hue+0.01)%1; infoLabel.TextColor3=Color3.fromHSV(hue,1,1); wait(0.03) end end)
-    ErrorLabel=Instance.new("TextLabel"); ErrorLabel.Name="ErrorLabel"; ErrorLabel.Size=UDim2.new(1,0,0,25); ErrorLabel.Position=UDim2.new(0,0,1,-95); ErrorLabel.BackgroundTransparency=1; ErrorLabel.TextColor3=COLOR_ERROR; ErrorLabel.Font=Enum.Font.GothamBold; ErrorLabel.TextSize=16; ErrorLabel.Text=""; ErrorLabel.Parent=frame
-    local function showLocalError(msg) ErrorLabel.Text=msg; spawn(function() wait(2); if ErrorLabel and ErrorLabel.Parent==frame then ErrorLabel.Text="" end end) showLocalError
+
+    ErrorLabel=Instance.new("TextLabel")
+    ErrorLabel.Name="ErrorLabel"
+    ErrorLabel.Size=UDim2.new(1,0,0,25)
+    ErrorLabel.Position=UDim2.new(0,0,1,-95)
+    ErrorLabel.BackgroundTransparency=1
+    ErrorLabel.TextColor3=COLOR_ERROR
+    ErrorLabel.Font=Enum.Font.GothamBold
+    ErrorLabel.TextSize=16
+    ErrorLabel.Text=""
+    ErrorLabel.Parent=frame
+    local function showLocalError(msg) ErrorLabel.Text=msg; spawn(function() wait(2); if ErrorLabel and ErrorLabel.Parent==frame then ErrorLabel.Text="" end end) end
+
+    copyKeyBtn.MouseButton1Click:Connect(function() local s,_=copyToClipboard("discord.gg/aNaFpb2Qsb"); if s then copyKeyBtn.Text="Link copiado!"; wait(2); copyKeyBtn.Text="Pegar Key" else showLocalError("Falha ao copiar.") end end)
+    confirmBtn.MouseButton1Click:Connect(function() validateKeyAndOpen(keyBox.Text:gsub("%s",""):lower(),false) end)
+    return frame,showLocalError
 end
 
-ToggleButton=Instance.new("TextButton"); ToggleButton.Name="ToggleButton"; ToggleButton.Size=UDim2.new(0,40,0,40); ToggleButton.Position=UDim2.new(0,10,0,10); ToggleButton.BackgroundColor3=Color3.new(0,0,0); ToggleButton.TextColor3=Color3.new(1,1,1); ToggleButton.Text="K"; ToggleButton.Font=Enum.Font.GothamBold; ToggleButton.TextSize=28; ToggleButton.Parent=ScreenGui; applyRoundedCorners(ToggleButton,10); ToggleButton.Visible=false
-local draggingToggle=false; local dragStartToggle,startPosToggle
-ToggleButton.InputBegan:Connect(function(input) if input.UserInputType==Enum.UserInputType.MouseButton1 or input.UserInputType==Enum.UserInputType.Touch then draggingToggle=true; dragStartToggle=input.Position; startPosToggle=ToggleButton.Position; local c; c=input.Changed:Connect(function() if input.UserInputState==Enum.UserInputState.End then draggingToggle=false; c:Disconnect() end end) end end)
-UserInputService.InputChanged:Connect(function(input) if draggingToggle and (input.UserInputType==Enum.UserInputType.MouseMovement or input.UserInputType==Enum.UserInputType.Touch) then local delta=input.Position-dragStartToggle; ToggleButton.Position=UDim2.new(startPosToggle.X.Scale,startPosToggle.X.Offset+delta.X,startPosToggle.Y.Scale,startPosToggle.Y.Offset+delta.Y) end end)
-ToggleButton.MouseButton1Click:Connect(function() if not HubOpen then if KeyFrame and KeyFrame.Parent then KeyFrame:Destroy(); KeyFrame=nil end; if LoadingScreen and LoadingScreen.Parent then if StopLoadingAnim then StopLoadingAnim() end; LoadingScreen:Destroy(); LoadingScreen=nil end; MainFrameContainer=createHub(); HubOpen=true; ToggleButton.Visible=false end end)
+ToggleButton=Instance.new("TextButton")
+ToggleButton.Name="ToggleButton"
+ToggleButton.Size=UDim2.new(0,40,0,40)
+ToggleButton.Position=UDim2.new(0,10,0,10)
+ToggleButton.BackgroundColor3=Color3.new(0,0,0)
+ToggleButton.TextColor3=Color3.new(1,1,1)
+ToggleButton.Text="K"
+ToggleButton.Font=Enum.Font.GothamBold
+ToggleButton.TextSize=28
+ToggleButton.Parent=ScreenGui
+applyRoundedCorners(ToggleButton,10)
+ToggleButton.Visible=false
+
+local draggingToggle=false
+local dragStartToggle,startPosToggle
+ToggleButton.InputBegan:Connect(function(input)
+    if input.UserInputType==Enum.UserInputType.MouseButton1 or input.UserInputType==Enum.UserInputType.Touch then
+        draggingToggle=true
+        dragStartToggle=input.Position
+        startPosToggle=ToggleButton.Position
+        local c
+        c=input.Changed:Connect(function()
+            if input.UserInputState==Enum.UserInputState.Ended then
+                draggingToggle=false
+                c:Disconnect()
+            end
+        end)
+    end
+end)
+UserInputService.InputChanged:Connect(function(input)
+    if draggingToggle and (input.UserInputType==Enum.UserInputType.MouseMovement or input.UserInputType==Enum.UserInputType.Touch) then
+        local delta=input.Position-dragStartToggle
+        ToggleButton.Position=UDim2.new(startPosToggle.X.Scale,startPosToggle.X.Offset+delta.X,startPosToggle.Y.Scale,startPosToggle.Y.Offset+delta.Y)
+    end
+end)
+ToggleButton.MouseButton1Click:Connect(function()
+    if not HubOpen then
+        if KeyFrame and KeyFrame.Parent then KeyFrame:Destroy(); KeyFrame=nil end
+        if LoadingScreen and LoadingScreen.Parent then if StopLoadingAnim then StopLoadingAnim() end; LoadingScreen:Destroy(); LoadingScreen=nil end
+        MainFrameContainer=createHub()
+        HubOpen=true
+        ToggleButton.Visible=false
+    end
+end)
 
 if not tryAutoValidate() then KeyFrame,showError=createKeyInputFrame() end
